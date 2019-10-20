@@ -21,8 +21,6 @@
         var firstMove = false;
 
         var rect = new fabric.Rect({
-            left: 0,
-            top: 0,
             fill: '#908CFF',
             width: 60,
             height: 60,
@@ -66,7 +64,80 @@
             }
         }
 
-        var 
+        var linear1 = new fabric.Rect({
+            width: 60,
+            height: 60,
+            fill: '#C3BAFF',
+            selectable: false,
+            left: rect.left - 180,
+            top: rect.top
+        })
+
+        var linear2 = new fabric.Rect({
+            width: 60,
+            height: 60,
+            fill: '#C3BAFF',
+            selectable: false,
+            left: rect.left + 180,
+            top: rect.top
+        })
+
+        var linear3 = new fabric.Rect({
+            width: 60,
+            height: 60,
+            fill: '#C3BAFF',
+            selectable: false,
+            top: rect.top + 180,
+            left: rect.left
+        })
+
+        var linear4 = new fabric.Rect({
+            width: 60,
+            height: 60,
+            fill: '#C3BAFF',
+            selectable: false,
+            top: rect.top - 180,
+            left: rect.left
+        })
+
+        var nonLinear1 = new fabric.Rect({
+            width: 60,
+            height: 60,
+            fill: '#C3BAFF',
+            selectable: false
+        })
+
+        var nonLinear2 = new fabric.Rect({
+            width: 60,
+            height: 60,
+            fill: '#C3BAFF',
+            selectable: false
+        })
+
+        var nonLinear3 = new fabric.Rect({
+            width: 60,
+            height: 60,
+            fill: '#C3BAFF',
+            selectable: false
+        })
+
+        var nonLinear4 = new fabric.Rect({
+            width: 60,
+            height: 60,
+            fill: '#C3BAFF',
+            selectable: false
+        })
+
+        var linearSquares = new fabric.Group([ linear1, linear2, linear3, linear4 ]);
+        var nonLinearSquares = new fabric.Group([ nonLinear1, nonLinear2, nonLinear3, nonLinear4 ]);
+
+        console.log(linearSquares);
+
+        rect.on('mousedown', function() {
+            canvas.add(linearSquares);
+        });
+
+        canvas.renderAll();
     </script>
 </body>
 
