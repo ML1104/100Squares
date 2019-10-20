@@ -11,19 +11,62 @@
 </head>
 
 <body>
-    <canvas id="c" width="800" height="450"></canvas>
+    <div class="container">
+        <canvas id="c" width="600" height="600"></canvas>
+    </div>
+
     <script>
         var canvas = new fabric.Canvas('c');
 
+        var firstMove = false;
+
         var rect = new fabric.Rect({
-            left: 100,
-            top: 100,
-            fill: 'red',
-            width: 20,
-            height: 20
+            left: 0,
+            top: 0,
+            fill: '#908CFF',
+            width: 60,
+            height: 60,
+            selectable: false
         });
 
-        canvas.add(rect);
+        var grid = 60;
+
+        for (var i = 0; i < (600 / grid); i++) {
+            canvas.add(new fabric.Line([i * grid, 0, i * grid, 600], { stroke: '#EEEEEE', selectable: false }));
+            canvas.add(new fabric.Line([0, i * grid, 600, i * grid], { stroke: '#EEEEEE', selectable: false }));
+        }
+
+        canvas.on('object:added', function (options) {
+            options.target.set({
+                left: Math.round(options.target.left / grid) * grid,
+                top: Math.round(options.target.top / grid) * grid
+            });
+        });
+
+        canvas.on('mouse:down', function () {
+            getMouseCoord();
+        });
+
+        function getMouseCoord(event) {
+            var pointer = canvas.getPointer(event);
+            var posX = pointer.x;
+            var posY = pointer.y;
+            console.log(posX + ", " + posY);
+
+            if (firstMove === false) {
+                rect.top = pointer.y - 30;
+                rect.left = pointer.x - 30;
+
+                canvas.add(rect);
+                firstMove = true;
+            }
+
+            else {
+                return;
+            }
+        }
+
+        var 
     </script>
 </body>
 

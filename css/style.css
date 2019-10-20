@@ -1,3 +1,12 @@
-canvas {
-    border: 1px solid black;
+#c {
+    border: 1px solid #EEEEEE;
+}
+
+.container {
+    width: 100%;
+    margin-top: 50px;
+}
+
+.canvas-container {
+    margin: 0 auto;
 }
