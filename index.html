@@ -12,7 +12,7 @@
 
 <body>
     <div class="container">
-        <canvas id="c" width="600" height="600"></canvas>
+        <canvas id="c" class="canvas" width="600" height="600"></canvas>
     </div>
 
     <script>
@@ -39,6 +39,7 @@
                 left: Math.round(options.target.left / grid) * grid,
                 top: Math.round(options.target.top / grid) * grid
             });
+            canvas.renderAll();
         });
 
         canvas.on('mouse:down', function () {
@@ -69,8 +70,8 @@
             height: 60,
             fill: '#C3BAFF',
             selectable: false,
-            left: rect.left - 180,
-            top: rect.top
+            // left: rect.left - 180,
+            // top: rect.top
         })
 
         var linear2 = new fabric.Rect({
@@ -78,8 +79,8 @@
             height: 60,
             fill: '#C3BAFF',
             selectable: false,
-            left: rect.left + 180,
-            top: rect.top
+            // left: rect.left + 180,
+            // top: rect.top
         })
 
         var linear3 = new fabric.Rect({
@@ -87,8 +88,8 @@
             height: 60,
             fill: '#C3BAFF',
             selectable: false,
-            top: rect.top + 180,
-            left: rect.left
+            // top: rect.top + 180,
+            // left: rect.left
         })
 
         var linear4 = new fabric.Rect({
@@ -96,8 +97,8 @@
             height: 60,
             fill: '#C3BAFF',
             selectable: false,
-            top: rect.top - 180,
-            left: rect.left
+            // top: rect.top - 180,
+            // left: rect.left
         })
 
         var nonLinear1 = new fabric.Rect({
@@ -128,13 +129,238 @@
             selectable: false
         })
 
-        var linearSquares = new fabric.Group([ linear1, linear2, linear3, linear4 ]);
-        var nonLinearSquares = new fabric.Group([ nonLinear1, nonLinear2, nonLinear3, nonLinear4 ]);
+        // var nonLinearSquares = new fabric.Group([nonLinear1, nonLinear2, nonLinear3, nonLinear4]);
 
-        console.log(linearSquares);
+        // var linearSquares = new fabric.Group([linear1, linear2, linear3, linear4], {
+        //         top: pointer.y - 200,
+        //         left: pointer.x - 190,
+        //         selectable: false,
+        //     });
 
-        rect.on('mousedown', function() {
-            canvas.add(linearSquares);
+        // console.log(linearSquares);
+
+        function alignSquares() {
+            var pointer = canvas.getPointer(event);
+            var posX = pointer.x;
+            var posY = pointer.y;
+
+            linear1.top = pointer.y - 30;
+            linear1.left = pointer.x - 210;
+
+            linear2.top = pointer.y - 30;
+            linear2.left = pointer.x + 150;
+
+            linear3.top = pointer.y + 150;
+            linear3.left = pointer.x - 30;
+
+            linear4.top = pointer.y - 210;
+            linear4.left = pointer.x - 30;
+
+            nonLinear1.top = pointer.y - 150;
+            nonLinear1.left = pointer.x - 150;
+
+            nonLinear2.top = pointer.y - 150;
+            nonLinear2.left = pointer.x + 90;
+
+            nonLinear3.top = pointer.y + 90;
+            nonLinear3.left = pointer.x - 150;
+
+            nonLinear4.top = pointer.y + 90;
+            nonLinear4.left = pointer.x + 90;
+        };
+
+        rect.on('added', function () {
+            alignSquares();
+
+            var pointer = canvas.getPointer(event);
+            var posX = pointer.x;
+            var posY = pointer.y;
+
+            canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+
+            rect.clone(function (cloned) {
+                _clipboard = cloned;
+            })
+        });
+
+        linear1.on('mousedown', function () {
+            var pointer = canvas.getPointer(event);
+            canvas.remove(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+            _clipboard.clone(function (clonedRect) {
+                clonedRect.set({
+                    fill: '#908CFF',
+                    width: 60,
+                    height: 60,
+                    selectable: false,
+                    top: pointer.y - 30,
+                    left: pointer.x - 30
+                })
+
+                canvas.add(clonedRect);
+
+                clonedRect.on('mouseup', function () {
+                    alignSquares();
+                    canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                });
+            });
+        });
+
+
+        linear2.on('mousedown', function () {
+            var pointer = canvas.getPointer(event);
+            canvas.remove(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+            _clipboard.clone(function (clonedRect) {
+                clonedRect.set({
+                    fill: '#908CFF',
+                    width: 60,
+                    height: 60,
+                    selectable: false,
+                    top: pointer.y - 30,
+                    left: pointer.x - 30
+                })
+
+                canvas.add(clonedRect);
+
+                clonedRect.on('mouseup', function () {
+                    alignSquares();
+                    canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                });
+            });
+        });
+
+        linear3.on('mousedown', function () {
+            var pointer = canvas.getPointer(event);
+            canvas.remove(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+            _clipboard.clone(function (clonedRect) {
+                clonedRect.set({
+                    fill: '#908CFF',
+                    width: 60,
+                    height: 60,
+                    selectable: false,
+                    top: pointer.y - 30,
+                    left: pointer.x - 30
+                })
+
+                canvas.add(clonedRect);
+
+                clonedRect.on('mouseup', function () {
+                    alignSquares();
+                    canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                });
+            });
+        });
+
+
+        linear4.on('mousedown', function () {
+            var pointer = canvas.getPointer(event);
+            canvas.remove(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+            _clipboard.clone(function (clonedRect) {
+                clonedRect.set({
+                    fill: '#908CFF',
+                    width: 60,
+                    height: 60,
+                    selectable: false,
+                    top: pointer.y - 30,
+                    left: pointer.x - 30
+                })
+
+                canvas.add(clonedRect);
+
+                clonedRect.on('mouseup', function () {
+                    alignSquares();
+                    canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                });
+            });
+        });
+
+        nonLinear1.on('mousedown', function () {
+            var pointer = canvas.getPointer(event);
+            canvas.remove(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+            _clipboard.clone(function (clonedRect) {
+                clonedRect.set({
+                    fill: '#908CFF',
+                    width: 60,
+                    height: 60,
+                    selectable: false,
+                    top: pointer.y - 30,
+                    left: pointer.x - 30
+                })
+
+                canvas.add(clonedRect);
+
+                clonedRect.on('mouseup', function () {
+                    alignSquares();
+                    canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                });
+            });
+        });
+
+
+        nonLinear2.on('mousedown', function () {
+            var pointer = canvas.getPointer(event);
+            canvas.remove(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+            _clipboard.clone(function (clonedRect) {
+                clonedRect.set({
+                    fill: '#908CFF',
+                    width: 60,
+                    height: 60,
+                    selectable: false,
+                    top: pointer.y - 30,
+                    left: pointer.x - 30
+                })
+
+                canvas.add(clonedRect);
+
+                clonedRect.on('mouseup', function () {
+                    alignSquares();
+                    canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                });
+            });
+        });
+
+        nonLinear3.on('mousedown', function () {
+            var pointer = canvas.getPointer(event);
+            canvas.remove(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+            _clipboard.clone(function (clonedRect) {
+                clonedRect.set({
+                    fill: '#908CFF',
+                    width: 60,
+                    height: 60,
+                    selectable: false,
+                    top: pointer.y - 30,
+                    left: pointer.x - 30
+                })
+
+                canvas.add(clonedRect);
+
+                clonedRect.on('mouseup', function () {
+                    alignSquares();
+                    canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                });
+            });
+        });
+
+
+        nonLinear4.on('mousedown', function () {
+            var pointer = canvas.getPointer(event);
+            canvas.remove(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+            _clipboard.clone(function (clonedRect) {
+                clonedRect.set({
+                    fill: '#908CFF',
+                    width: 60,
+                    height: 60,
+                    selectable: false,
+                    top: pointer.y - 30,
+                    left: pointer.x - 30
+                })
+
+                canvas.add(clonedRect);
+
+                clonedRect.on('mouseup', function () {
+                    alignSquares();
+                    canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                });
+            });
         });
 
         canvas.renderAll();
