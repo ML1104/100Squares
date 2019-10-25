@@ -22,8 +22,8 @@
 
         var rect = new fabric.Rect({
             fill: '#908CFF',
-            width: 60,
-            height: 60,
+            width: 59,
+            height: 59,
             selectable: false
         });
 
@@ -66,8 +66,8 @@
         }
 
         var linear1 = new fabric.Rect({
-            width: 60,
-            height: 60,
+            width: 59,
+            height: 59,
             fill: '#C3BAFF',
             selectable: false,
             // left: rect.left - 180,
@@ -75,8 +75,8 @@
         })
 
         var linear2 = new fabric.Rect({
-            width: 60,
-            height: 60,
+            width: 59,
+            height: 59,
             fill: '#C3BAFF',
             selectable: false,
             // left: rect.left + 180,
@@ -84,8 +84,8 @@
         })
 
         var linear3 = new fabric.Rect({
-            width: 60,
-            height: 60,
+            width: 59,
+            height: 59,
             fill: '#C3BAFF',
             selectable: false,
             // top: rect.top + 180,
@@ -93,8 +93,8 @@
         })
 
         var linear4 = new fabric.Rect({
-            width: 60,
-            height: 60,
+            width: 59,
+            height: 59,
             fill: '#C3BAFF',
             selectable: false,
             // top: rect.top - 180,
@@ -102,29 +102,29 @@
         })
 
         var nonLinear1 = new fabric.Rect({
-            width: 60,
-            height: 60,
+            width: 59,
+            height: 59,
             fill: '#C3BAFF',
             selectable: false
         })
 
         var nonLinear2 = new fabric.Rect({
-            width: 60,
-            height: 60,
+            width: 59,
+            height: 59,
             fill: '#C3BAFF',
             selectable: false
         })
 
         var nonLinear3 = new fabric.Rect({
-            width: 60,
-            height: 60,
+            width: 59,
+            height: 59,
             fill: '#C3BAFF',
             selectable: false
         })
 
         var nonLinear4 = new fabric.Rect({
-            width: 60,
-            height: 60,
+            width: 59,
+            height: 59,
             fill: '#C3BAFF',
             selectable: false
         })
@@ -189,8 +189,8 @@
             _clipboard.clone(function (clonedRect) {
                 clonedRect.set({
                     fill: '#908CFF',
-                    width: 60,
-                    height: 60,
+                    width: 59,
+                    height: 59,
                     selectable: false,
                     top: pointer.y - 30,
                     left: pointer.x - 30
@@ -198,9 +198,24 @@
 
                 canvas.add(clonedRect);
 
+                function checkCollision() {
+                    if (linear2.intersectsWithObject(rect) || linear2.isContainedWithinObject(rect) || rect.isContainedWithinObject(linear2)) {
+                        canvas.remove(linear2);
+                    }
+
+                    if (linear2.intersectsWithObject(clonedRect) || linear2.isContainedWithinObject(clonedRect) || clonedRect.isContainedWithinObject(linear2)) {
+                        canvas.remove(linear2);
+                    }
+
+                    else {
+                        canvas.remove(linear2);
+                    }
+                }
+
                 clonedRect.on('mouseup', function () {
                     alignSquares();
                     canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                    checkCollision();
                 });
             });
         });
@@ -212,8 +227,8 @@
             _clipboard.clone(function (clonedRect) {
                 clonedRect.set({
                     fill: '#908CFF',
-                    width: 60,
-                    height: 60,
+                    width: 59,
+                    height: 59,
                     selectable: false,
                     top: pointer.y - 30,
                     left: pointer.x - 30
@@ -221,9 +236,40 @@
 
                 canvas.add(clonedRect);
 
+                function checkCollision() {
+                    if (linear1.intersectsWithObject(rect) || linear1.isContainedWithinObject(rect) || rect.isContainedWithinObject(linear1)) {
+                        canvas.remove(linear1);
+                    }
+
+                    if (linear1.intersectsWithObject(clonedRect) || linear1.isContainedWithinObject(clonedRect) || clonedRect.isContainedWithinObject(linear1)) {
+                        canvas.remove(linear1);
+                    }
+
+                    else {
+                        canvas.remove(linear1)
+                    }
+                }
+
                 clonedRect.on('mouseup', function () {
                     alignSquares();
+
                     canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                    
+                    // function checkCollision() {
+                    //     canvas.forEachObject(function (obj) {
+                    //         if (obj === linear1) return;
+                    //         if (linear1.isContainedWithinObject(obj) || linear1.intersectsWithObject(obj) || obj.isContainedWithinObject(linear1)) {
+                    //             canvas.remove(linear1);
+                    //             canvas.add(linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                    //         }
+
+                    //         else {
+                    //             canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                    //         }
+                    //     });
+                    // }
+
+                    checkCollision();
                 });
             });
         });
@@ -234,8 +280,8 @@
             _clipboard.clone(function (clonedRect) {
                 clonedRect.set({
                     fill: '#908CFF',
-                    width: 60,
-                    height: 60,
+                    width: 59,
+                    height: 59,
                     selectable: false,
                     top: pointer.y - 30,
                     left: pointer.x - 30
@@ -243,9 +289,24 @@
 
                 canvas.add(clonedRect);
 
+                function checkCollision() {
+                    if (linear4.intersectsWithObject(rect) || linear4.isContainedWithinObject(rect) || rect.isContainedWithinObject(linear4)) {
+                        canvas.remove(linear4);
+                    }
+
+                    if (linear4.intersectsWithObject(clonedRect) || linear4.isContainedWithinObject(clonedRect) || clonedRect.isContainedWithinObject(linear4)) {
+                        canvas.remove(linear4);
+                    }
+
+                    else {
+                        canvas.remove(linear4)
+                    }
+                }
+
                 clonedRect.on('mouseup', function () {
                     alignSquares();
                     canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                    checkCollision();
                 });
             });
         });
@@ -257,8 +318,8 @@
             _clipboard.clone(function (clonedRect) {
                 clonedRect.set({
                     fill: '#908CFF',
-                    width: 60,
-                    height: 60,
+                    width: 59,
+                    height: 59,
                     selectable: false,
                     top: pointer.y - 30,
                     left: pointer.x - 30
@@ -266,9 +327,24 @@
 
                 canvas.add(clonedRect);
 
+                function checkCollision() {
+                    if (linear3.intersectsWithObject(rect) || linear3.isContainedWithinObject(rect) || rect.isContainedWithinObject(linear3)) {
+                        canvas.remove(linear3);
+                    }
+
+                    if (linear3.intersectsWithObject(clonedRect) || linear3.isContainedWithinObject(clonedRect) || clonedRect.isContainedWithinObject(linear3)) {
+                        canvas.remove(linear3);
+                    }
+
+                    else {
+                        canvas.remove(linear3)
+                    }
+                }
+
                 clonedRect.on('mouseup', function () {
                     alignSquares();
                     canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                    checkCollision();
                 });
             });
         });
@@ -279,8 +355,8 @@
             _clipboard.clone(function (clonedRect) {
                 clonedRect.set({
                     fill: '#908CFF',
-                    width: 60,
-                    height: 60,
+                    width: 59,
+                    height: 59,
                     selectable: false,
                     top: pointer.y - 30,
                     left: pointer.x - 30
@@ -288,9 +364,24 @@
 
                 canvas.add(clonedRect);
 
+                function checkCollision() {
+                    if (nonLinear4.intersectsWithObject(rect) || nonLinear4.isContainedWithinObject(rect) || rect.isContainedWithinObject(nonLinear4)) {
+                        canvas.remove(nonLinear4);
+                    }
+
+                    if (nonLinear4.intersectsWithObject(clonedRect) || nonLinear4.isContainedWithinObject(clonedRect) || clonedRect.isContainedWithinObject(nonLinear4)) {
+                        canvas.remove(nonLinear4);
+                    }
+
+                    else {
+                        canvas.remove(nonLinear4)
+                    }
+                }
+
                 clonedRect.on('mouseup', function () {
                     alignSquares();
                     canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                    checkCollision();
                 });
             });
         });
@@ -302,8 +393,8 @@
             _clipboard.clone(function (clonedRect) {
                 clonedRect.set({
                     fill: '#908CFF',
-                    width: 60,
-                    height: 60,
+                    width: 59,
+                    height: 59,
                     selectable: false,
                     top: pointer.y - 30,
                     left: pointer.x - 30
@@ -311,9 +402,24 @@
 
                 canvas.add(clonedRect);
 
+                function checkCollision() {
+                    if (nonLinear3.intersectsWithObject(rect) || nonLinear3.isContainedWithinObject(rect) || rect.isContainedWithinObject(nonLinear3)) {
+                        canvas.remove(nonLinear3);
+                    }
+
+                    if (nonLinear3.intersectsWithObject(clonedRect) || nonLinear3.isContainedWithinObject(clonedRect) || clonedRect.isContainedWithinObject(nonLinear3)) {
+                        canvas.remove(nonLinear3);
+                    }
+
+                    else {
+                        canvas.remove(nonLinear3)
+                    }
+                }
+
                 clonedRect.on('mouseup', function () {
                     alignSquares();
                     canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                    checkCollision();
                 });
             });
         });
@@ -324,8 +430,8 @@
             _clipboard.clone(function (clonedRect) {
                 clonedRect.set({
                     fill: '#908CFF',
-                    width: 60,
-                    height: 60,
+                    width: 59,
+                    height: 59,
                     selectable: false,
                     top: pointer.y - 30,
                     left: pointer.x - 30
@@ -333,9 +439,24 @@
 
                 canvas.add(clonedRect);
 
+                function checkCollision() {
+                    if (nonLinear2.intersectsWithObject(rect) || nonLinear2.isContainedWithinObject(rect) || rect.isContainedWithinObject(nonLinear2)) {
+                        canvas.remove(nonLinear2);
+                    }
+
+                    if (nonLinear2.intersectsWithObject(clonedRect) || nonLinear2.isContainedWithinObject(clonedRect) || clonedRect.isContainedWithinObject(nonLinear2)) {
+                        canvas.remove(nonLinear2);
+                    }
+
+                    else {
+                        canvas.remove(nonLinear2)
+                    }
+                }
+
                 clonedRect.on('mouseup', function () {
                     alignSquares();
                     canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                    checkCollision();
                 });
             });
         });
@@ -347,8 +468,8 @@
             _clipboard.clone(function (clonedRect) {
                 clonedRect.set({
                     fill: '#908CFF',
-                    width: 60,
-                    height: 60,
+                    width: 59,
+                    height: 59,
                     selectable: false,
                     top: pointer.y - 30,
                     left: pointer.x - 30
@@ -356,9 +477,24 @@
 
                 canvas.add(clonedRect);
 
+                function checkCollision() {
+                    if (nonLinear1.intersectsWithObject(rect) || nonLinear1.isContainedWithinObject(rect) || rect.isContainedWithinObject(nonLinear1)) {
+                        canvas.remove(nonLinear1);
+                    }
+
+                    if (nonLinear1.intersectsWithObject(clonedRect) || nonLinear1.isContainedWithinObject(clonedRect) || clonedRect.isContainedWithinObject(nonLinear1)) {
+                        canvas.remove(nonLinear1);
+                    }
+
+                    else {
+                        canvas.remove(nonLinear1)
+                    }
+                }
+
                 clonedRect.on('mouseup', function () {
                     alignSquares();
                     canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
+                    checkCollision();
                 });
             });
         });
