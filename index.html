@@ -39,6 +39,7 @@
                 left: Math.round(options.target.left / grid) * grid,
                 top: Math.round(options.target.top / grid) * grid
             });
+
             canvas.renderAll();
         });
 
@@ -70,8 +71,6 @@
             height: 59,
             fill: '#C3BAFF',
             selectable: false,
-            // left: rect.left - 180,
-            // top: rect.top
         })
 
         var linear2 = new fabric.Rect({
@@ -79,8 +78,6 @@
             height: 59,
             fill: '#C3BAFF',
             selectable: false,
-            // left: rect.left + 180,
-            // top: rect.top
         })
 
         var linear3 = new fabric.Rect({
@@ -88,8 +85,6 @@
             height: 59,
             fill: '#C3BAFF',
             selectable: false,
-            // top: rect.top + 180,
-            // left: rect.left
         })
 
         var linear4 = new fabric.Rect({
@@ -97,8 +92,6 @@
             height: 59,
             fill: '#C3BAFF',
             selectable: false,
-            // top: rect.top - 180,
-            // left: rect.left
         })
 
         var nonLinear1 = new fabric.Rect({
@@ -128,16 +121,6 @@
             fill: '#C3BAFF',
             selectable: false
         })
-
-        // var nonLinearSquares = new fabric.Group([nonLinear1, nonLinear2, nonLinear3, nonLinear4]);
-
-        // var linearSquares = new fabric.Group([linear1, linear2, linear3, linear4], {
-        //         top: pointer.y - 200,
-        //         left: pointer.x - 190,
-        //         selectable: false,
-        //     });
-
-        // console.log(linearSquares);
 
         function alignSquares() {
             var pointer = canvas.getPointer(event);
@@ -182,6 +165,42 @@
                 _clipboard = cloned;
             })
         });
+
+        canvas.on('mouse:over', function (e) {
+            if (e.target == linear1 || e.target == linear2 || e.target == linear3 || e.target == linear4) {
+                e.target.set('fill', '#C3BA00');
+                canvas.renderAll();
+            }
+
+            if (e.target == nonLinear1 || e.target == nonLinear2 || e.target == nonLinear3 || e.target == nonLinear4) {
+                e.target.set('fill', '#C3BA00');
+                canvas.renderAll();
+            }
+
+            else {
+                return;
+            }
+        })
+
+        canvas.on('mouse:out', function (e) {
+            var sequelSquares = [ linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4 ]
+            if (e.target == rect) {
+                e.target.set('fill', '#908CFF' )
+                canvas.renderAll();
+            }
+
+            else {
+                sequelSquares[0].set('fill', '#C3BAFF');
+                sequelSquares[1].set('fill', '#C3BAFF');
+                sequelSquares[2].set('fill', '#C3BAFF');
+                sequelSquares[3].set('fill', '#C3BAFF');
+                sequelSquares[4].set('fill', '#C3BAFF');
+                sequelSquares[5].set('fill', '#C3BAFF');
+                sequelSquares[6].set('fill', '#C3BAFF');
+                sequelSquares[7].set('fill', '#C3BAFF');
+                canvas.renderAll();
+            }
+        })
 
         linear1.on('mousedown', function () {
             var pointer = canvas.getPointer(event);
@@ -254,21 +273,6 @@
                     alignSquares();
 
                     canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
-                    
-                    // function checkCollision() {
-                    //     canvas.forEachObject(function (obj) {
-                    //         if (obj === linear1) return;
-                    //         if (linear1.isContainedWithinObject(obj) || linear1.intersectsWithObject(obj) || obj.isContainedWithinObject(linear1)) {
-                    //             canvas.remove(linear1);
-                    //             canvas.add(linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
-                    //         }
-
-                    //         else {
-                    //             canvas.add(linear1, linear2, linear3, linear4, nonLinear1, nonLinear2, nonLinear3, nonLinear4);
-                    //         }
-                    //     });
-                    // }
-
                     checkCollision();
                 });
             });
@@ -498,7 +502,6 @@
                 });
             });
         });
-
         canvas.renderAll();
     </script>
 </body>
